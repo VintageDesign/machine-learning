@@ -8,12 +8,12 @@ class Perceptron:
         self._weights = []
 
     def _predict(self, x):
-        summation = np.dot(x, self._weights[1:]) + self._weights[0]
-        if summation > 0:
-            activation = 1
-        else:
-            activation = -1
-        return activation
+        summation = self.net_input(x)
+        summation = np.where(summation > 0, 1, -1)
+        return summation
+
+    def net_input(self, x):
+        return np.dot(x, self._weights[1:]) + self._weights[0]
 
     def fit(self, x, y):
         self._weights = [0 for index in range(len(x[0])+1)]
@@ -36,4 +36,8 @@ class Perceptron:
         return self._weights
 
     def predict(self, x):
+        size = x.shape
+        size = size[1]
+        retval = self._predict(x)
+        return retval
 
