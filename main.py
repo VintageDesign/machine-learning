@@ -1,4 +1,4 @@
-# This is a sample Python script.
+#!/usr/bin/env python3
 
 import pandas as pd
 import numpy as np
@@ -41,7 +41,7 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
         # plot the decision surface
         x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
         x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-        x3_min, x3_max = X[:, 2].min() - 1, X[:, 2].max() + 1
+        x3_min, x3_max = X[:, 2].min() - 2, X[:, 2].max() + 1
         xx1, xx2, xx3 = np.meshgrid(np.arange(x1_min, x1_max, resolution),
                                np.arange(x2_min, x2_max, resolution),
                                np.arange(x3_min, x3_max, resolution))
@@ -66,29 +66,25 @@ def main():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
 
     y = df.iloc[0:100, 4].values
-    print(df.head(1))
     y = np.where(y == 'Iris-setosa', -1, 1)
 
     x = df.iloc[0:100, [0, 2]].values
     xlabel_text = "Index 0"
     ylabel_text = "Index 2"
     zlabel_text = "Index 3"
-    #
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    # ax.scatter(x[:50, 0], x[:50, 1], x[:50, 2], color='red', marker='o', label='setosa')
-    # ax.scatter(x[50:100, 0], x[50:100, 1], x[50:100, 2], color='blue', marker='x', label='versicolor')
-    # ax.set_xlabel(xlabel_text)
-    # ax.set_ylabel(ylabel_text)
-    # ax.set_zlabel(zlabel_text)
-    # ax.legend()
-    # plt.show()
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111 )
+    ax.scatter(x[:50, 0], x[:50, 1], color='red', marker='o', label='setosa')
+    ax.scatter(x[50:100, 0], x[50:100, 1], color='blue', marker='x', label='versicolor')
+    ax.set_xlabel(xlabel_text)
+    ax.set_ylabel(ylabel_text)
+    ax.legend()
 
     perceptron = Perceptron(.1, 100)
-
     perceptron.fit(x, y)
     #print(perceptron.get_weights())
-
+    plt.figure()
     plot_decision_regions(x, y, perceptron)
     plt.xlabel(xlabel_text)
     plt.ylabel(ylabel_text)
