@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from ML import Perceptron, LinearRegression
+from ML import Perceptron, LinearRegression, Stump
+
 
 def perceptron_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
@@ -51,5 +52,34 @@ def linear_regression_example():
 
     fit_x = np.linspace(np.min(x), np.max(x), 100)
     fit_y = regession.get_slope() * fit_x + regession.get_intercept()
+    ax.plot(fit_x, fit_y)
+    plt.show()
+
+
+def stump_example():
+    df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
+
+    y = df.iloc[0:100, 4].values
+    y = np.where(y == 'Iris-setosa', -1, 1)
+
+    x = df.iloc[0:100, [0, 2]].values
+    xlabel_text = "Index 0"
+    ylabel_text = "Index 2"
+    zlabel_text = "Index 3"
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(x[:50, 0], x[:50, 1], color='red', marker='o', label='setosa')
+    ax.scatter(x[50:100, 0], x[50:100, 1], color='blue', marker='x', label='versicolor')
+    ax.set_xlabel(xlabel_text)
+    ax.set_ylabel(ylabel_text)
+    ax.legend()
+
+    stump = Stump()
+    stump.fit(x, y)
+    print(stump.get_threshold())
+    fit_x = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
+    fit_y = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
+    fit_y[:] = stump.get_threshold()
     ax.plot(fit_x, fit_y)
     plt.show()
