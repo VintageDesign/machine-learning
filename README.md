@@ -36,6 +36,9 @@ model.fit(data_points, labels)
 ```
 
 ### Using the Model
+Once the model has been trained, the model can then be used. For information on how to use a specific model, see the model/algorithm's documentation.
+
+
 
 
 
