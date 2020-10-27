@@ -149,7 +149,7 @@ class LinearRegression:
 class Stump:
     def __init__(self):
         self._weights = np.ones((5, 1))/5
-        self._steps = 20
+        self._steps = 10
 
         self._threshold = 0
         self._ineq = ''
