@@ -53,17 +53,13 @@ class Stump:
                     threshold = min + j * step_size
                     predicted_val = self._classify(data_matrix, i, threshold, inequal)
 
-                    error = np.ones((m, 1))
-
-                    error[predicted_val == label_matrix] = 0
-
-                    error_total = np.sum(error)
+                    error_total = np.sum(abs(label_matrix - predicted_val))
 
                     if error_total < self._minerror:
                         self._minerror = error_total
                         self._threshold = threshold
                         self._dim = i
-                    self._ineq = inequal
+                        self._ineq = inequal
 
     def get_threshold(self):
         """
