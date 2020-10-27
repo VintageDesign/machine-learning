@@ -2,6 +2,8 @@
 ###### Author: Riley Kopp
 Enclosed is the detailed descriptions of each ML algorithm. See the repo's readme for details on installing the package.
 
+**For examples of each algorithm being used on real data, please see [examples.py](examples.py).**
+
 ## Table of Contents
 - [Perceptron](#Perceptron)
 - [Linear Regression](#Linear-Regression)
