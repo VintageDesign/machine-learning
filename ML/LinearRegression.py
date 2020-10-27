@@ -30,12 +30,8 @@ class LinearRegression:
         x_mean = self._get_mean(x)
         y_mean = self._get_mean(y)
 
-        top = 0
-        bottom = 0
-        for index in range(len(x)):
-            top += (x[index] - x_mean) * (y[index] - y_mean)
-            bottom += (x[index] - x_mean) ** 2
-
+        top = np.dot(x - x_mean, y - y_mean)
+        bottom = np.sum(((x - x_mean) ** 2))
         self._slope = top / bottom
         self._intercept = y_mean - (self._slope * x_mean)
 

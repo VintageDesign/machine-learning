@@ -65,6 +65,7 @@ End
 ```
 
 Once the Perceptron is fit, the Perceptron can be run on test data.
+
 [Code][Perceptron.py]
 
 ## Linear Regression
@@ -89,9 +90,57 @@ Once the model is fitted, the functions `get_slope()` and `get_intercept()` can 
 linear equation that was fit to the data points.
 
 ### What Does Linear Regression do?
-No Idea
+At a high level, Linear Regression is a minimization function designed to minimize the distance between the given
+data points and the linear function being approximated by the model (refered to as the minimization of the residuals). 
+At a lower level, the model is using a method of regression known as least squares. 
+
+Least Squares approximates a line by minimizing the sum of the squares of the residuals. Where the residuals can be 
+calculated using:
+```
+residual_i = y_i - F(x_i)
+```
+
+Where `F(x)` follows the standard form: `F(x) = m * x + b`
+
+Once the residuals for all `i` are calculated, the goal becomes minimizing the sum of the squared residuals:
+```
+S = sum(residuals^2)
+```
+
+Which has the closed form solution:
+```
+m = dot(x - x_mean, y - y_mean) / sum(( x - x_mean) ^2)
+b = y_mean - m * x_mean
+```
+
 [Code](LinearRegression.py)
+
+
 ## Decision Stump
+### How to Use:
+To use the Stump Class in your own code use the following line:
+```
+from ML import Stump 
+```
 
+Then create the object of the Linear Regression Class by running:
+```
+classifier = Stump(steps)
+```
 
-[Perceptron.py]: Perceptron.py
+Where steps is the number of thresholds to attempt.
+
+Then fit the model by calling:
+```
+classifier.fit(X, y)
+```
+Where `X` is a matrix of size `m x n` where `m` is the number of data points and `n` is the number of features within
+the datapoint and `y` is a matrix of size `m` and contains the labels corresponding to the data points in `X`.
+  
+Once the model is fitted, the functions `get_threshold()` and `get_dimension()` to get the threshold for the classifier
+and the dimension that the model determined was the optimal for shattering the dataset. 
+
+### What Does a Decision Stump do?
+No Idea
+
+[Code](Stump.py)
