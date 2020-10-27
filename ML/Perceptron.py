@@ -4,20 +4,36 @@ from matplotlib.colors import ListedColormap
 
 
 class Perceptron:
-    def __init__(self, scale, max_epochs):
+    def __init__(self, scale: float, max_epochs: int):
+        """
+        Initializes the Perceptron object
+        :param scale: The scale at which the weights of the classifier are manipulated.
+        :param max_epochs: The maximum number of times the fit function will run if the classifier cannot converge.
+        """
         self._scale = scale
         self._max_epochs = max_epochs
         self._weights = []
 
     def _predict(self, x):
-        summation = self.net_input(x)
+        summation = self._net_input(x)
         summation = np.where(summation > 0, 1, -1)
         return summation
 
-    def net_input(self, x):
+    def _net_input(self, x: np.ndarray):
+        """
+        Applies the weights to each datapoint for classification in the step activation function.
+        :param x: The nd array of datapoints
+        :return: The value of each datapoint after weights are applied.
+        """
         return np.dot(x, self._weights[1:]) + self._weights[0]
 
-    def fit(self, x, y):
+    def fit(self, x: np.ndarray, y: np.ndarray):
+        """
+        Trains the perceptron.
+        :param x: The datapoints to train on.
+        :param y: The labels of the training set.
+        :return:
+        """
         self._weights = [0 for index in range(len(x[0])+1)]
 
         for epoch in range(self._max_epochs):
@@ -35,13 +51,30 @@ class Perceptron:
                 break
 
     def get_weights(self):
+        """
+        The weights of the perceptron. Run Perceptron.fit() first.
+        :return:
+        """
         return self._weights
 
-    def predict(self, x):
+    def predict(self, x: np.ndarray):
+        """
+        Classifies the given datapoint based on the trained weights from Perceptron.fit()
+        :param x: The n dimensional datapoint to classify
+        :return: The point's predicted class
+        """
         retval = self._predict(x)
         return retval
 
     def plot_decision_regions(self, X, y, classifier, resolution=0.02):
+        """
+        Plots the regions of the perceptron based on weight.
+        :param X: The data points
+        :param y: The labels
+        :param classifier: the classifier object
+        :param resolution: the resolution of the regions.
+        :return:
+        """
         # setup marker generator and color map
         shape = X.shape
         if shape[1] == 2:
