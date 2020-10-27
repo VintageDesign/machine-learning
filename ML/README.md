@@ -91,7 +91,7 @@ linear equation that was fit to the data points.
 
 ### What Does Linear Regression do?
 At a high level, Linear Regression is a minimization function designed to minimize the distance between the given
-data points and the linear function being approximated by the model (refered to as the minimization of the residuals). 
+data points and the linear function being approximated by the model (referred to as the minimization of the residuals). 
 At a lower level, the model is using a method of regression known as least squares. 
 
 Least Squares approximates a line by minimizing the sum of the squares of the residuals. Where the residuals can be 
@@ -141,6 +141,32 @@ Once the model is fitted, the functions `get_threshold()` and `get_dimension()` 
 and the dimension that the model determined was the optimal for shattering the dataset. 
 
 ### What Does a Decision Stump do?
-No Idea
+A Decision Stump is another version of a binary classifier. Unlike a perceptron, the decision stump can only shatter a
+data set in one dimension. It does this by running the following algorithm:
+
+```
+For dimension in n
+    min = minimum valued feature in the dimension
+    max = maximum valued feature in the dimension
+
+    step_size = (max - min) / steps
+
+    For current_step between -1 and steps + 1
+        For sign in  ['>' , '<=']
+            threshold = min + j * current_step
+            predicted_labels = classify(data_matrix, dimension, threshold, sign)
+
+            error = sum(abs(labels - predicted_labels))
+
+            If error < min_error
+                min_error = error
+                best_threshold = threshold
+                best_dimension = dimension
+            End
+        End
+    End
+    
+End
+```
 
 [Code](Stump.py)
