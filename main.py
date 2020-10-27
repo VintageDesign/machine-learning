@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from examples import linear_regression_example, stump_example
+from ML.examples import stump_example
 
 
 def main():
