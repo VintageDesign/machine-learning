@@ -69,7 +69,7 @@ End
 
 Once the Perceptron is fit, the Perceptron can be run on test data.
 
-[Code][Perceptron.py]
+[Code](Perceptron.py)
 
 [Example](examples.py#L7-L33)
 
