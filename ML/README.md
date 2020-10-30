@@ -33,6 +33,7 @@ classifier.
 
 To run the classifier on testing data, call `classifier.perdict(X)`
 
+
 ### What Does the Perceptron Do?
 At a high level, the perceptron is a binary classifier. Meaning it can separate items into two classes based on their 
 features. At a lower level, the perceptron takes a dot product of the feature set `X_i` and the weight vector `w` and 
@@ -72,6 +73,10 @@ Once the Perceptron is fit, the Perceptron can be run on test data.
 [Code](Perceptron.py)
 
 [Example](examples.py#L7-L33)
+
+### Example Output:
+![Perceptron Example](../images/Perceptron_output.png)
+
 
 ## Linear Regression
 ### How to Use:
@@ -122,6 +127,9 @@ b = y_mean - m * x_mean
 
 [Example](examples.py#L36-L56)
 
+### Example Output:
+![Regression Example](../images/LinearRegression_output.png)
+
 ## MultiVariate Linear Regression
 ### How to Use:
 To use the MV Linear Regression Class in your own code use the following line:
@@ -169,6 +177,9 @@ self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 [Code](MultiVariateLinearRegression.py)
 
 [Example](examples.py#L59-L80)
+
+### Example Output:
+![Multi Linear Example](../images/MultiLinearRegression_output.png)
 
 
 ## Decision Stump
@@ -227,3 +238,6 @@ End
 [Code](Stump.py)
 
 [Example](examples.py#L82-L108)
+
+### Example Output:
+![Stump Example](../images/Stump_output.png)
