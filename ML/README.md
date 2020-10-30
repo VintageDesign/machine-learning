@@ -71,6 +71,8 @@ Once the Perceptron is fit, the Perceptron can be run on test data.
 
 [Code][Perceptron.py]
 
+[Example](examples.py#L7-L33)
+
 ## Linear Regression
 ### How to Use:
 To use the Linear Regression Class in your own code use the following line:
@@ -118,6 +120,8 @@ b = y_mean - m * x_mean
 
 [Code](LinearRegression.py)
 
+[Example](examples.py#L36-L56)
+
 ## MultiVariate Linear Regression
 ### How to Use:
 To use the MV Linear Regression Class in your own code use the following line:
@@ -164,7 +168,7 @@ self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 
 [Code](MultiVariateLinearRegression.py)
 
-[Example](examples.py#L59-80)
+[Example](examples.py#L59-L80)
 
 
 ## Decision Stump
@@ -221,3 +225,5 @@ End
 ```
 
 [Code](Stump.py)
+
+[Example](examples.py#L82-L108)
