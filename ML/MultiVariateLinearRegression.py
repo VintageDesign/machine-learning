@@ -53,17 +53,7 @@ class MultiVariateLinearRegression:
 
     def get_weights(self):
         """
-        The weights of the perceptron. Run Perceptron.fit() first.
+        The weights of the function, first value in the array is the bias.
         :return:
         """
         return self._weights
-
-    def predict(self, x: np.ndarray):
-        """
-        Classifies the given datapoint based on the trained weights from Perceptron.fit()
-        :param x: The n dimensional datapoint to classify
-        :return: The point's predicted class
-        """
-        retval = self._predict(x)
-        return retval
-

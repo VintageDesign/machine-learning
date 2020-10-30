@@ -147,24 +147,23 @@ At a lower level, the model is using a method of regression known as least squar
 Least Squares approximates a line by minimizing the sum of the squares of the residuals. Where the residuals can be 
 calculated using:
 ```
-residual_i = y_i - F(x_i)
+residual_i = y_i - F(X_i)
 ```
 
-Where `F(x)` follows the standard form: `F(x) = m * x + b`
+Where `F(x)` follows the standard form: `F(x) = bias + w_1 * x_1 + w_2 + x_2 ....`
 
-Once the residuals for all `i` are calculated, the goal becomes minimizing the sum of the squared residuals:
+To minimize the error or the residual, the model uses the following method:
+
 ```
-S = sum(residuals^2)
+error = prediction - y[index]
+
+self._weights[0] = self._weights[0] - (self._learning_rate * error)
+self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 ```
 
-Which has the closed form solution:
-```
-m = dot(x - x_mean, y - y_mean) / sum(( x - x_mean) ^2)
-b = y_mean - m * x_mean
-```
 
 [Code](MultiVariateLinearRegression.py)
-
+[Example](examples.py#L59)
 
 
 ## Decision Stump
