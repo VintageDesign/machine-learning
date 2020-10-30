@@ -164,7 +164,7 @@ self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 
 [Code](MultiVariateLinearRegression.py)
 
-[Example](examples.py/multilinear_regression_example)
+[Example](examples.py#L59-80)
 
 
 ## Decision Stump
