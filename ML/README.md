@@ -7,7 +7,7 @@ Enclosed is the detailed descriptions of each ML algorithm. See the repo's readm
 ## Table of Contents
 - [Perceptron](#Perceptron)
 - [Linear Regression](#Linear-Regression)
-- [Linear Regression](#MultiVariate-Linear-Regression)
+- [MultiVariate Linear Regression](#MultiVariate-Linear-Regression)
 - [Decision Stump](#Decision-Stump)
 ## Perceptron
 ### How to Use:
