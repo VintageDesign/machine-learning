@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from ML import Perceptron, LinearRegression, Stump
+from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump
 
 
 def perceptron_example():
@@ -55,6 +55,29 @@ def linear_regression_example():
     ax.plot(fit_x, fit_y)
     plt.show()
 
+
+def multilinear_regression_example():
+    df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
+
+    x = df.iloc[0:50, [0, 1]].values
+    y = df.iloc[0:50, 2].values
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(x[:, 0], x[:, 1], y[:], color='blue', marker='o')
+    #ax.legend()
+
+    regession = MultiVariateLinearRegression(.001, 1000)
+
+    regession.fit(x, y)
+
+    weights = regession.get_weights()
+    fit_x = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
+    fit_z = np.linspace(np.min(x[:, 1]), np.max(x[:, 1]), 100)
+    fit_y = weights[2] * fit_z + weights[1] * fit_x + weights[0]
+
+    ax.plot(fit_x, fit_z, fit_y)
+    plt.show()
 
 def stump_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)

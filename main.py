@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from ML.examples import linear_regression_example, stump_example
+from ML.examples import multilinear_regression_example, stump_example
 
 
 def main():
-    stump_example()
+    multilinear_regression_example()
 
 
 if __name__ == '__main__':

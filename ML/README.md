@@ -7,6 +7,7 @@ Enclosed is the detailed descriptions of each ML algorithm. See the repo's readm
 ## Table of Contents
 - [Perceptron](#Perceptron)
 - [Linear Regression](#Linear-Regression)
+- [Linear Regression](#MultiVariate-Linear-Regression)
 - [Decision Stump](#Decision-Stump)
 ## Perceptron
 ### How to Use:
@@ -116,6 +117,54 @@ b = y_mean - m * x_mean
 ```
 
 [Code](LinearRegression.py)
+
+## MultiVariate Linear Regression
+### How to Use:
+To use the MV Linear Regression Class in your own code use the following line:
+```
+from ML import MultiVariateLinearRegression
+```
+
+Then create the object of the Linear Regression Class by running:
+```
+classifier = MultiVariateLinearRegression()
+```
+Then fit the model by calling:
+```
+classifier.fit(x, y)
+```
+Where `x` is an array of size `n x m` and contains the independent data points and where `y` is a vector of size `n` and 
+contains the dependent data points.
+  
+Once the model is fitted, the function `get_weights()` can be called to obtain the constants for
+linear equation that was fit to the data points where the first value in the returned vector is the bias.
+
+### What Does Linear Regression do?
+At a high level, Linear Regression is a minimization function designed to minimize the distance between the given
+data points and the linear function being approximated by the model (referred to as the minimization of the residuals). 
+At a lower level, the model is using a method of regression known as least squares. 
+
+Least Squares approximates a line by minimizing the sum of the squares of the residuals. Where the residuals can be 
+calculated using:
+```
+residual_i = y_i - F(x_i)
+```
+
+Where `F(x)` follows the standard form: `F(x) = m * x + b`
+
+Once the residuals for all `i` are calculated, the goal becomes minimizing the sum of the squared residuals:
+```
+S = sum(residuals^2)
+```
+
+Which has the closed form solution:
+```
+m = dot(x - x_mean, y - y_mean) / sum(( x - x_mean) ^2)
+b = y_mean - m * x_mean
+```
+
+[Code](MultiVariateLinearRegression.py)
+
 
 
 ## Decision Stump
