@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
+
 from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump
 
 
@@ -106,3 +108,7 @@ def stump_example():
     fit_y[:] = stump.get_threshold()
     ax.plot(fit_x, fit_y)
     plt.show()
+
+
+def cnn_example():
+    pass

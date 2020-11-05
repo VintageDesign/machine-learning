@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-from ML.examples import multilinear_regression_example, stump_example, perceptron_example, linear_regression_example
+from ML.examples import multilinear_regression_example, stump_example, perceptron_example, linear_regression_example, cnn_example
 
 
 def main():
-    multilinear_regression_example()
-    stump_example()
+    cnn_example()
 
 
 if __name__ == '__main__':
