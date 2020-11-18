@@ -118,8 +118,8 @@ def logistic_regression_example():
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(dataset[:], classes[:])
-    l_rate = 0.6
-    n_epoch = 100
+    l_rate = 0.5
+    n_epoch = 1000
     classifier = LogisticRegression(l_rate, n_epoch)
     classifier.fit(dataset, classes)
     coef = classifier.get_coeff()
