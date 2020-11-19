@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from math import exp
-from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression
+from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN
 
 
 def perceptron_example():
@@ -132,3 +132,19 @@ def logistic_regression_example():
 
     ax.plot(fit_x, fit_y)
     plt.show()
+
+def knn_example():
+    df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
+
+    classes = ['Setosa', 'Versicolor', 'Virginica']
+
+    dataset = df.iloc[0:150, [0, 2, 4]].values
+    dataset[:, 2] = np.where(dataset[:, 2] == 'Iris-setosa', 0, dataset[:, 2])
+    dataset[:, 2] = np.where(dataset[:, 2] == 'Iris-versicolor', 1, dataset[:, 2])
+    dataset[:, 2] = np.where(dataset[:, 2] == 'Iris-virginica', 2, dataset[:, 2])
+
+    classifier = KNN(8, dataset[:149, :])
+
+    new_class = classifier.predict(dataset[149, :2])
+
+    print(classes[new_class])
