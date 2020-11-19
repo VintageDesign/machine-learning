@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump
+from math import exp
+from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression
 
 
 def perceptron_example():
@@ -104,5 +105,30 @@ def stump_example():
     fit_x = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
     fit_y = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
     fit_y[:] = stump.get_threshold()
+    ax.plot(fit_x, fit_y)
+    plt.show()
+
+def logistic_regression_example():
+    df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
+
+    y = df.iloc[0:100, 4].values
+    classes = np.where(y == 'Iris-setosa', 0, 1)
+
+    dataset = df.iloc[0:100, 2].values
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(dataset[:50], classes[:50], color='red', label='Not Setosa')
+    ax.scatter(dataset[50:], classes[50:], color='blue', label='Setosa')
+    ax.legend()
+    l_rate = 0.5
+    n_epoch = 100
+    classifier = LogisticRegression(l_rate, n_epoch)
+    classifier.fit(dataset, classes)
+    coef = classifier.get_coeff()
+    print(coef)
+
+    fit_x = np.linspace(np.min(dataset[:]), np.max(dataset[:]), 100)
+    fit_y = classifier.predict(fit_x)
+
     ax.plot(fit_x, fit_y)
     plt.show()
