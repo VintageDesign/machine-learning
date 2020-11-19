@@ -117,9 +117,11 @@ def logistic_regression_example():
     dataset = df.iloc[0:100, 2].values
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.scatter(dataset[:], classes[:])
+    ax.scatter(dataset[:50], classes[:50], color='red', label='Not Setosa')
+    ax.scatter(dataset[50:], classes[50:], color='blue', label='Setosa')
+    ax.legend()
     l_rate = 0.5
-    n_epoch = 1000
+    n_epoch = 100
     classifier = LogisticRegression(l_rate, n_epoch)
     classifier.fit(dataset, classes)
     coef = classifier.get_coeff()

@@ -8,6 +8,7 @@ Enclosed is the detailed descriptions of each ML algorithm. See the repo's readm
 - [Perceptron](#Perceptron)
 - [Linear Regression](#Linear-Regression)
 - [MultiVariate Linear Regression](#MultiVariate-Linear-Regression)
+- [Logistic Regression](#)
 - [Decision Stump](#Decision-Stump)
 ## Perceptron
 ### How to Use:
@@ -180,6 +181,37 @@ self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 
 ### Example Output:
 ![Multi Linear Example](../images/MultiLinearRegression_output.png)
+
+## Logistic Regression
+### How to Use:
+To use the Logistic Regression Class in your own code use the following line:
+```
+from ML import LogistcRegression
+```
+
+Then create the object of the Linear Regression Class by running:
+```
+classifier = LogisticRegression()
+```
+Then fit the model by calling:
+```
+classifier.fit(x, y)
+```
+Where `x` is an vector of size `n` and contains the independent data points and where `y` is a vector of size `n` and 
+contains the class of the data.
+  
+Once the model is fitted, the function `get_coeff()` can be called to obtain the constants for
+linear equation that was fit to the data points where the first value in the returned vector is the bias.
+
+### What Does Logistic Regression do?
+Excellent Question.
+
+[Code](LogisticRegression.py)
+
+[Example](examples.py#L111-L134)
+
+### Example Output:
+![Logistic Example](../images/log_regression.png)
 
 
 ## Decision Stump
