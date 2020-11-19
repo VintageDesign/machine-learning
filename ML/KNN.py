@@ -11,8 +11,7 @@ class KNN:
         distances = np.linalg.norm(tmp, axis=1)
 
         index = np.argsort(distances)
-
-        sorted_set = self._training_set[index[:], :]
+        sorted_set = self._training_set[index, :]
 
         (unique, counts) = np.unique(sorted_set[:self._k, -1], return_counts=True)
 

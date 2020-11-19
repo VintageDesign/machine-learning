@@ -283,3 +283,34 @@ End
 
 ### Example Output:
 ![Stump Example](../class_results/Stump_output.png)
+
+## K Nearest Neighbors
+### How to Use:
+To use the KNN Class in your own code use the following line:
+```
+from ML import KNN 
+```
+
+Then create the object of the Linear Regression Class by running:
+```
+classifier = KNN(k, data_set)
+```
+
+Where `k` is the number of points to consider in the KNN algorithm and `data_set` is the training data for the 
+classifier. 
+**Note:** `data_set` must be of size n x m where n is the number of data points and m is the count of the datapoint's 
+features + 1. Where `data_set[:, -1]` is the classification of the datapoint.
+
+Since there is no 'fitting' per se, the only function available is the `predict(data_point)` function. This function
+accepts a single datapoint and returns the datapoint's predicted class. `data_point` must be of size 1 x (m - 1). 
+
+### What K-Nearest Neighbors do?
+KNN uses the Frobenius norm to measure the distance between our new data point and all other data points in the data set.
+KNN then sorts the dataset based on their distances to the new point. Once the dataset is sorted, the classifier selects
+the closest `k` points and counts them by class. The class with the highest number of neighbors to the new datapoint is
+the predicted class of the datapoint.
+
+[Code](KNN.py)
+
+[Example](examples.py#L136-L150)
+
