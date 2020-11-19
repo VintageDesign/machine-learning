@@ -76,7 +76,7 @@ Once the Perceptron is fit, the Perceptron can be run on test data.
 [Example](examples.py#L7-L33)
 
 ### Example Output:
-![Perceptron Example](../images/Perceptron_output.png)
+![Perceptron Example](../class_results/Perceptron_output.png)
 
 
 ## Linear Regression
@@ -180,7 +180,7 @@ self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 [Example](examples.py#L59-L80)
 
 ### Example Output:
-![Multi Linear Example](../class_results/MultiLinearRegression_output.png)
+![Multi Linear Example](../class_results/MultivariateLinearRegression_output.png)
 
 ## Logistic Regression
 ### How to Use:
