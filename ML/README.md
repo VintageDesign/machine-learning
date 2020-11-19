@@ -8,7 +8,7 @@ Enclosed is the detailed descriptions of each ML algorithm. See the repo's readm
 - [Perceptron](#Perceptron)
 - [Linear Regression](#Linear-Regression)
 - [MultiVariate Linear Regression](#MultiVariate-Linear-Regression)
-- [Logistic Regression](#)
+- [Logistic Regression](#Logistic-Regression)
 - [Decision Stump](#Decision-Stump)
 ## Perceptron
 ### How to Use:
@@ -129,7 +129,7 @@ b = y_mean - m * x_mean
 [Example](examples.py#L36-L56)
 
 ### Example Output:
-![Regression Example](../images/LinearRegression_output.png)
+![Regression Example](../class_results/LinearRegression_output.png)
 
 ## MultiVariate Linear Regression
 ### How to Use:
@@ -180,7 +180,7 @@ self._weights[1:] = self._weights[1:] - (self._learning_rate * error * x[index])
 [Example](examples.py#L59-L80)
 
 ### Example Output:
-![Multi Linear Example](../images/MultiLinearRegression_output.png)
+![Multi Linear Example](../class_results/MultiLinearRegression_output.png)
 
 ## Logistic Regression
 ### How to Use:
@@ -211,7 +211,7 @@ Excellent Question.
 [Example](examples.py#L111-L134)
 
 ### Example Output:
-![Logistic Example](../images/log_regression.png)
+![Logistic Example](../class_results/log_regression.png)
 
 
 ## Decision Stump
@@ -272,4 +272,4 @@ End
 [Example](examples.py#L82-L108)
 
 ### Example Output:
-![Stump Example](../images/Stump_output.png)
+![Stump Example](../class_results/Stump_output.png)
