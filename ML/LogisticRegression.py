@@ -13,8 +13,7 @@ class LogisticRegression:
         self._coeff = np.zeros((1, 1))
 
     def predict(self, row):
-        yhat = self._coeff[0] + self._coeff[1] * row
-        return 1.0 / (1.0 + np.exp(-yhat))
+        return 1.0 / (1.0 + np.exp(- (self._coeff[0] + self._coeff[1] * row)))
 
     def fit(self, train, classes):
         try:
@@ -30,8 +29,7 @@ class LogisticRegression:
                 error = classes[i] - yhat
                 sum_error += error ** 2
                 self._coeff[0] = self._coeff[0] + self._l_rate * error * yhat * (1.0 - yhat)
-                for i in range(1):
-                    self._coeff[i + 1] = self._coeff[i + 1] + self._l_rate * error * yhat * (1.0 - yhat) * row
+                self._coeff[1] = self._coeff[1] + self._l_rate * error * yhat * (1.0 - yhat) * row
                 if sum_error == 0:
                     break
 

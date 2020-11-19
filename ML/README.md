@@ -204,7 +204,17 @@ Once the model is fitted, the function `get_coeff()` can be called to obtain the
 linear equation that was fit to the data points where the first value in the returned vector is the bias.
 
 ### What Does Logistic Regression do?
-Excellent Question.
+Logistic Regression uses a sigmoid function to model binary output.
+The sigmoid function:
+```python
+y = 1.0 / (1.0 + exp(-(c_0 + c_1 * x)))
+```
+
+Where the coefficients are created using a stochastic gradient descent model defined here:
+```python
+c_0 = c_0 + l_rate * error * yhat * (1.0 - yhat)
+c_1 = c_1 + l_rate * error * yhat * (1.0 - yhat) * x
+```
 
 [Code](LogisticRegression.py)
 
