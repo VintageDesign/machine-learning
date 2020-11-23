@@ -136,15 +136,10 @@ def logistic_regression_example():
 def knn_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
 
-    classes = ['Setosa', 'Versicolor', 'Virginica']
-
-    dataset = df.iloc[0:150, [0, 2, 4]].values
-    dataset[:, 2] = np.where(dataset[:, 2] == 'Iris-setosa', 0, dataset[:, 2])
-    dataset[:, 2] = np.where(dataset[:, 2] == 'Iris-versicolor', 1, dataset[:, 2])
-    dataset[:, 2] = np.where(dataset[:, 2] == 'Iris-virginica', 2, dataset[:, 2])
+    dataset = df.iloc[0:150, :].values
 
     classifier = KNN(8, dataset[:149, :])
 
-    new_class = classifier.predict(dataset[149, :2])
+    new_class = classifier.predict(dataset[149, :-1])
 
-    print(classes[new_class])
+    print(new_class)
