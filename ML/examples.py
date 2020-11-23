@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from math import exp
-from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN
+from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN, SVM
 
 
 def perceptron_example():
@@ -143,3 +143,38 @@ def knn_example():
     new_class = classifier.predict(dataset[149, :-1])
 
     print(new_class)
+
+
+def svm_example():
+    df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
+
+
+    x = df.iloc[0:100, [2, 3, 4]].values
+    x[:, 2] = np.where(x[:, 2] == 'Iris-setosa', -1, 1)
+    xlabel_text = "Index 0"
+    ylabel_text = "Index 2"
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(x[:50, 0], x[:50, 1], color='red', marker='o', label='setosa')
+    ax.scatter(x[50:100, 0], x[50:100, 1], color='blue', marker='x', label='versicolor')
+    ax.set_xlabel(xlabel_text)
+    ax.set_ylabel(ylabel_text)
+    ax.legend()
+
+    classifer = SVM(.001, 1000, .01)
+    classifer.fit(x)
+
+    fit_x = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
+    w = classifer.get_weights()
+    fit_y = (w[0] + fit_x * w[1]) / w[2]
+    plt.plot(fit_x, fit_y)
+    #plt.fill_between(fit_x, fit_y - np.linalg.norm(w), fit_y + np.linalg.norm(w), edgecolor='none',
+                     #color='#AAAAAA', alpha=0.4)
+
+
+    plt.xlabel(xlabel_text)
+    plt.ylabel(ylabel_text)
+    plt.show()
+
+    print(classifer.get_weights())
