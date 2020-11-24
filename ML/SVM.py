@@ -8,37 +8,38 @@ class SVM:
         self._epochs = epochs
         self._margin = margin
 
-    def predict(self, points: np.ndarray):
-        """
-        :param points:
-        :return:
-        """
-        if len(points.shape) == 1:
-            return np.sign(np.dot(self._weights[1:], points[:-1]) + self._weights[0])
-        else:
-            return np.sign(np.dot(self._weights[1:], points[:, :-1]) + self._weights[0])
+    def _compute_cost(self, points):
+        distances = 1 - points[:, -1] * (np.dot(points[:, :-1], self._weights[1:]) + self._weights[0])
+        distances[distances < 0] = 0
+        loss = self._margin * np.mean(distances)
 
-    def fit(self, dataset: np.ndarray):
-        """
-        Fit the SVM using SGD
-        :param dataset: the ndarray of data where dataset[:, -1] is the class of the data point
-        :return:
-        """
-        dataset = dataset.astype(np.float64)
-        self._weights = np.zeros(dataset.shape[1])
+        return 1/2 * np.dot(self._weights, self._weights) + loss
+
+    def _compute_cost_gradient(self, points):
+
+        distance = 1 - (points[-1] * (np.dot(points[:-1], self._weights[1:]) + self._weights[0]))
+        delta_weights = np.zeros(self._weights.shape).astype(np.float64)
+
+        if distance < 0:
+            delta_weights += self._weights
+        else:
+            delta_weights[1:] += self._weights[1:] - (self._margin * points[-1] * points[:-1]).astype(np.float64)
+            delta_weights[0] += self._weights[0] - (self._margin * points[-1])
+
+        return delta_weights
+
+    def fit(self, dataset):
+        last_cost = float("inf")
+        self._weights = np.zeros(dataset.shape[1]).astype(np.float64)
 
         for _ in range(self._epochs):
-            for _, point in enumerate(dataset):
-                predicted_val = self.predict(point)
-                error = point[-1] * predicted_val < 1
-                if not error:
-                    self._weights[1:] -= self._learning_rate * 1/2 * self._margin * self._weights[1:]
-                else:
-                    self._weights[1:] -= self._learning_rate * 1/2 * self._margin * self._weights[1:] - \
-                                         np.dot(point[:-1], point[-1])
-                    self._weights[0] -= self._learning_rate * point[-1]
+            for ind, point in enumerate(dataset):
+                ascent = self._compute_cost_gradient(point)
+                self._weights = self._weights - (self._learning_rate * ascent)
+            cost = self._compute_cost(dataset)
+            last_cost = cost
+
 
     def get_weights(self):
         return self._weights
-
 

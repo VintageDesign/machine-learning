@@ -151,8 +151,8 @@ def svm_example():
 
     x = df.iloc[0:100, [2, 3, 4]].values
     x[:, 2] = np.where(x[:, 2] == 'Iris-setosa', -1, 1)
-    xlabel_text = "Index 0"
-    ylabel_text = "Index 2"
+    xlabel_text = "Index 2"
+    ylabel_text = "Index 3"
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -162,19 +162,19 @@ def svm_example():
     ax.set_ylabel(ylabel_text)
     ax.legend()
 
-    classifer = SVM(.001, 1000, .01)
-    classifer.fit(x)
+    classifier = SVM(.000001, 1000, 10000)
+    classifier.fit(x)
 
     fit_x = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)
-    w = classifer.get_weights()
-    fit_y = (w[0] + fit_x * w[1]) / w[2]
+    w = classifier.get_weights()
+    fit_y = (w[0] + fit_x * w[1]) / -w[2]
     plt.plot(fit_x, fit_y)
-    #plt.fill_between(fit_x, fit_y - np.linalg.norm(w), fit_y + np.linalg.norm(w), edgecolor='none',
-                     #color='#AAAAAA', alpha=0.4)
+    plt.fill_between(fit_x, fit_y - 2/np.linalg.norm(w), fit_y + 2/np.linalg.norm(w), edgecolor='none',
+                     color='#AAAAAA', alpha=0.4)
 
 
     plt.xlabel(xlabel_text)
     plt.ylabel(ylabel_text)
     plt.show()
 
-    print(classifer.get_weights())
+    print(classifier.get_weights())
