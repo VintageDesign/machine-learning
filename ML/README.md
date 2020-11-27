@@ -11,6 +11,7 @@ Enclosed is the detailed descriptions of each ML algorithm. See the repo's readm
 - [Logistic Regression](#Logistic-Regression)
 - [Decision Stump](#Decision-Stump)
 - [K Nearest Neighbors](#K-Nearest-Neighbors)
+- [SVM](#SVM)
 ## Perceptron
 ### How to Use:
 To use the perceptron in your own code use the following line:
