@@ -163,7 +163,7 @@ def svm_example():
     ax.set_ylabel(ylabel_text)
     ax.legend()
 
-    classifier = SVM(.000001, 1000, 10000)
+    classifier = SVM(1000)
     classifier.fit(x)
 
     fit_x = np.linspace(np.min(x[:, 0]), np.max(x[:, 0]), 100)

@@ -2,7 +2,7 @@ import numpy as np
 
 
 class SVM:
-    def __init__(self, learning_rate: float, epochs: int, margin: float):
+    def __init__(self, epochs: int, learning_rate: float= .00001, margin: float= 10000):
         self._learning_rate = learning_rate
         self._weights = np.zeros((1, 1))
         self._epochs = epochs

@@ -127,12 +127,11 @@ m = dot(x - x_mean, y - y_mean) / sum(( x - x_mean) ^2)
 b = y_mean - m * x_mean
 ```
 
-The prediction interval is then calculated using the following math:
+The prediction interval is then calculated by bounding the error by 95%:
 ```python
 y_hat = slope * x + intercept
 err = sum((y - y_hat)**2)
 deviation = sqrt(1 / (len(y) - 2) * err)
-
 interval = 1.96 * deviation
 ```
 
@@ -326,3 +325,31 @@ the predicted class of the datapoint.
 
 [Example](examples.py#L136-L150)
 
+## SVM
+### How to Use:
+To use the SVM Class in your own code use the following line:
+```
+from ML import SMV
+```
+
+Then create the object of the Linear Regression Class by running:
+```
+classifier = SVM(epochs)
+```
+
+The class then must be fit with the following function:
+```
+classifier.fit(dataset)
+```
+Where the last column of the dataset is the class of the data point.
+
+### What does the SVM do?
+The support vector machine determines the best possible hyperplane for classification by maximizing the margin between 
+the points and the hyperplane. 
+ 
+### Example Output:
+![SVM Example](../class_results/SVM_output.png)
+
+[Code](SVM.py)
+
+[Example](examples.py#L149-L181)
