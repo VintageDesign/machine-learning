@@ -10,6 +10,7 @@ Enclosed is the detailed descriptions of each ML algorithm. See the repo's readm
 - [MultiVariate Linear Regression](#MultiVariate-Linear-Regression)
 - [Logistic Regression](#Logistic-Regression)
 - [Decision Stump](#Decision-Stump)
+- [K Nearest Neighbors](#K-Nearest-Neighbors)
 ## Perceptron
 ### How to Use:
 To use the perceptron in your own code use the following line:
@@ -100,6 +101,8 @@ contains the dependent data points.
 Once the model is fitted, the functions `get_slope()` and `get_intercept()` can be called to obtain the constants for
 linear equation that was fit to the data points.
 
+This implementation also calculates a prediction interval value that can be obtained by calling `get_interval()`
+
 ### What Does Linear Regression do?
 At a high level, Linear Regression is a minimization function designed to minimize the distance between the given
 data points and the linear function being approximated by the model (referred to as the minimization of the residuals). 
@@ -122,6 +125,15 @@ Which has the closed form solution:
 ```
 m = dot(x - x_mean, y - y_mean) / sum(( x - x_mean) ^2)
 b = y_mean - m * x_mean
+```
+
+The prediction interval is then calculated using the following math:
+```python
+y_hat = slope * x + intercept
+err = sum((y - y_hat)**2)
+deviation = sqrt(1 / (len(y) - 2) * err)
+
+interval = 1.96 * deviation
 ```
 
 [Code](LinearRegression.py)

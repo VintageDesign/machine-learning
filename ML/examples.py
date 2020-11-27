@@ -43,7 +43,6 @@ def linear_regression_example():
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(x[:], y[:], color='blue', marker='o', label='diamonds')
-    ax.legend()
 
     regession = LinearRegression()
 
