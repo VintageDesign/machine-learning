@@ -35,11 +35,9 @@ def perceptron_example():
 
 
 def linear_regression_example():
-    df = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv')
-    df = df[df['price'] > 1]
-    x = df.iloc[1:, 6].values
-    y = df.iloc[1:, 0].values
-    print(y[0])
+    df = pd.read_csv('datasets/test.csv')
+    x = df.iloc[1:, 0].values
+    y = df.iloc[1:, 1].values
 
 
     fig = plt.figure()
@@ -53,7 +51,11 @@ def linear_regression_example():
 
     fit_x = np.linspace(np.min(x), np.max(x), 100)
     fit_y = regession.get_slope() * fit_x + regession.get_intercept()
-    ax.plot(fit_x, fit_y)
+    min_y = regession.get_slope() * fit_x + regession.get_intercept() - regession.get_interval()
+    max_y = regession.get_slope() * fit_x + regession.get_intercept() + regession.get_interval()
+    ax.plot(fit_x, fit_y, 'g--')
+    ax.plot(fit_x, min_y, 'r-')
+    ax.plot(fit_x, max_y, 'r-')
     plt.show()
 
 
