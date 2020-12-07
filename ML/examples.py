@@ -3,6 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import exp
 from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN, SVM
+from scipy.io import wavfile
+import librosa
+import os
+
+
 
 
 def perceptron_example():
@@ -178,3 +183,95 @@ def svm_example():
     plt.show()
 
     print(classifer.get_weights())
+
+
+def read_data():
+    data = []
+    min_size = 3000000
+    folder_name_list = []
+    for foldername in sorted(os.listdir(os.path.join(os.getcwd(), 'dataset'))):
+        for filename in sorted(os.listdir(os.path.join(os.path.join(os.getcwd(), 'dataset'),foldername))):
+            sample, single_file = wavfile.read(os.path.join(os.getcwd() + '/dataset/' + foldername, filename))
+            mfcc = librosa.feature.mfcc(single_file[:,0].astype(np.float64).T, sr=sample)
+            min_size = min(mfcc.flatten().shape[0], min_size)
+    for foldername in sorted(os.listdir(os.path.join(os.getcwd(), 'dataset'))):
+        for filename in sorted(os.listdir(os.path.join(os.path.join(os.getcwd(), 'dataset'),foldername))):
+            sample, single_file = wavfile.read(os.path.join(os.getcwd() + '/dataset/' + foldername, filename))
+            folder_name_list.append(foldername)
+            # time = np.linspace(0, single_file.shape[0]/ sample, single_file.shape[0])
+            # plt.plot(time, single_file[:, 0])
+            # plt.plot(time, single_file[:, 1])
+            # plt.show()
+            single_file = librosa.feature.mfcc(single_file[:, 0].astype(np.float64).T, sr=sample)
+            single_file = single_file.flatten()
+            data.append(single_file[:min_size])
+    data = np.vstack(data)
+    return min_size, data, folder_name_list
+
+
+def read_tests(min_size):
+    data = []
+    classes = []
+    for filename in sorted(os.listdir(os.path.join(os.getcwd(), 'tests'))):
+        sample, single_file = wavfile.read(os.path.join(os.getcwd() + '/tests/', filename))
+        classes.append(filename)
+        single_file = librosa.feature.mfcc(single_file[:, 0].astype(np.float64).T, sr=sample)
+        single_file = single_file.flatten()
+        data.append(single_file[:min_size])
+    data = np.vstack(data)
+    return classes, data
+
+
+def compute_energy_recovery(U, S, target_energy):
+    k = 0
+    actual_energy = 0
+    norm2 = np.sum(S)
+
+    while target_energy > actual_energy:
+        k += 1
+        sigma_val = np.sum(S[:k])
+        actual_energy = sigma_val / norm2
+
+    return k
+
+
+def pca_example():
+    dim = 3
+    min_size, data, classes = read_data()
+    classes = np.array(classes, dtype=np.str)
+
+    # Map class names
+    list_of_classes = np.unique(classes).tolist()
+    for name in list_of_classes:
+        classes = np.where(classes == name, list_of_classes.index(name), classes)
+
+    test_classes, test_cases = read_tests(min_size)
+
+    mean_data = data.mean(axis=0)
+    centered_data = data - mean_data
+
+    U, S, V = np.linalg.svd(centered_data.T)
+    k = compute_energy_recovery(data, S, .70)
+    # k = dim
+
+    points = np.matmul(centered_data, U[:, :k])
+
+    temp = np.zeros((points.shape[0], points.shape[1] + 1))
+    temp[:, :-1] = points
+    temp[:, -1] = classes
+
+
+
+    ax = plt.axes(projection='3d')
+    ax.plot(points[:, 0], points[:, 1], points[:, 2], 'o')
+    plt.show()
+
+    knn = KNN(2, temp)
+
+    for i in range(len(test_classes)):
+        point = test_cases[i, :] - mean_data
+
+        reduced = np.matmul(point, U[:, :k])
+        index = int(knn.predict(reduced))
+        print("Predicted:", list_of_classes[index])
+        print("Actual:", test_classes[i])
