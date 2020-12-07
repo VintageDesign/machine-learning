@@ -1,10 +1,12 @@
 import numpy as np
+from math import sqrt
 
 
 class LinearRegression:
     def __init__(self):
         self._slope = 0
         self._intercept = 0
+        self._interval = 0
 
     def _get_mean(self, arr):
         """
@@ -35,6 +37,12 @@ class LinearRegression:
         self._slope = top / bottom
         self._intercept = y_mean - (self._slope * x_mean)
 
+        y_hat = self._slope * x + self._intercept
+        err = np.sum((y - y_hat)**2)
+        deviation = sqrt(1 / (len(y) - 2) * err)
+
+        self._interval = 1.96 * deviation
+
         return True
 
     def get_slope(self):
@@ -49,3 +57,5 @@ class LinearRegression:
         """
         return self._intercept
 
+    def get_interval(self):
+        return self._interval
