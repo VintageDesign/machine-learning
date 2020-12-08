@@ -5,6 +5,7 @@ from .Stump import Stump
 from .LogisticRegression import LogisticRegression
 from .KNN import KNN
 from .SVM import SVM
+from .PCA import PCA
 
 
 from .examples import *

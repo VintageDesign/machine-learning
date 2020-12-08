@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from math import exp
-from ML import Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN, SVM
-from scipy.io import wavfile
 import librosa
 import os
+from math import exp
+from ML import PCA, Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN, SVM
+from scipy.io import wavfile
 
 
 
@@ -236,42 +236,18 @@ def compute_energy_recovery(U, S, target_energy):
 
 
 def pca_example():
-    dim = 3
     min_size, data, classes = read_data()
     classes = np.array(classes, dtype=np.str)
-
     # Map class names
     list_of_classes = np.unique(classes).tolist()
     for name in list_of_classes:
         classes = np.where(classes == name, list_of_classes.index(name), classes)
-
     test_classes, test_cases = read_tests(min_size)
 
-    mean_data = data.mean(axis=0)
-    centered_data = data - mean_data
-
-    U, S, V = np.linalg.svd(centered_data.T)
-    k = compute_energy_recovery(data, S, .70)
-    # k = dim
-
-    points = np.matmul(centered_data, U[:, :k])
-
-    temp = np.zeros((points.shape[0], points.shape[1] + 1))
-    temp[:, :-1] = points
-    temp[:, -1] = classes
-
-
-
-    ax = plt.axes(projection='3d')
-    ax.plot(points[:, 0], points[:, 1], points[:, 2], 'o')
-    plt.show()
-
-    knn = KNN(2, temp)
+    pca = PCA(data, classes)
 
     for i in range(len(test_classes)):
-        point = test_cases[i, :] - mean_data
-
-        reduced = np.matmul(point, U[:, :k])
-        index = int(knn.predict(reduced))
+        point = test_cases[i, :]
+        index = pca.predict(point)
         print("Predicted:", list_of_classes[index])
         print("Actual:", test_classes[i])
