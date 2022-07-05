@@ -4,10 +4,8 @@ import matplotlib.pyplot as plt
 import librosa
 import os
 from math import exp
-from ML import PCA, Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN, SVM
+from ML import PCA, Perceptron, LinearRegression, MultiVariateLinearRegression, Stump, LogisticRegression, KNN, SVM, ARMA
 from scipy.io import wavfile
-
-
 
 
 def perceptron_example():
@@ -46,7 +44,6 @@ def linear_regression_example():
     y = df.iloc[1:, 0].values
     print(y[0])
 
-
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(x[:], y[:], color='blue', marker='o', label='diamonds')
@@ -62,6 +59,31 @@ def linear_regression_example():
     plt.show()
 
 
+def multilinear_regression_example_ar():
+    x = np.asarray([[-27, -27.5], [-27.5, -27.7], [-27.7, -27.9], [-27.9, -28]])
+    y = np.asarray([-27.7, -27.9, -28, -28])
+
+    regession = MultiVariateLinearRegression(.001, 500)
+
+    regession.fit(x, y)
+
+    w = regession.get_weights()
+
+    test = np.asarray([-28.0, -28.1])
+
+    print(regession.predict(test))
+
+
+def arma():
+    x = np.asarray([1.1, 1.2, 1.21, 1.12, 1.22, 1.23])
+
+    regression = ARMA(2, 0)
+
+    regression.fit(x)
+
+    print(regression.forecast(5))
+
+
 def multilinear_regression_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
 
@@ -71,7 +93,7 @@ def multilinear_regression_example():
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(x[:, 0], x[:, 1], y[:], color='blue', marker='o')
-    #ax.legend()
+    # ax.legend()
 
     regession = MultiVariateLinearRegression(.001, 1000)
 
@@ -84,6 +106,7 @@ def multilinear_regression_example():
 
     ax.plot(fit_x, fit_z, fit_y)
     plt.show()
+
 
 def stump_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
@@ -113,6 +136,7 @@ def stump_example():
     ax.plot(fit_x, fit_y)
     plt.show()
 
+
 def logistic_regression_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
 
@@ -138,6 +162,7 @@ def logistic_regression_example():
     ax.plot(fit_x, fit_y)
     plt.show()
 
+
 def knn_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
 
@@ -152,7 +177,6 @@ def knn_example():
 
 def svm_example():
     df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
-
 
     x = df.iloc[0:100, [2, 3, 4]].values
     x[:, 2] = np.where(x[:, 2] == 'Iris-setosa', -1, 1)
@@ -174,9 +198,8 @@ def svm_example():
     w = classifer.get_weights()
     fit_y = (w[0] + fit_x * w[1]) / w[2]
     plt.plot(fit_x, fit_y)
-    #plt.fill_between(fit_x, fit_y - np.linalg.norm(w), fit_y + np.linalg.norm(w), edgecolor='none',
-                     #color='#AAAAAA', alpha=0.4)
-
+    # plt.fill_between(fit_x, fit_y - np.linalg.norm(w), fit_y + np.linalg.norm(w), edgecolor='none',
+    # color='#AAAAAA', alpha=0.4)
 
     plt.xlabel(xlabel_text)
     plt.ylabel(ylabel_text)
@@ -190,12 +213,12 @@ def read_data():
     min_size = 3000000
     folder_name_list = []
     for foldername in sorted(os.listdir(os.path.join(os.getcwd(), 'dataset'))):
-        for filename in sorted(os.listdir(os.path.join(os.path.join(os.getcwd(), 'dataset'),foldername))):
+        for filename in sorted(os.listdir(os.path.join(os.path.join(os.getcwd(), 'dataset'), foldername))):
             sample, single_file = wavfile.read(os.path.join(os.getcwd() + '/dataset/' + foldername, filename))
-            mfcc = librosa.feature.mfcc(single_file[:,0].astype(np.float64).T, sr=sample)
+            mfcc = librosa.feature.mfcc(single_file[:, 0].astype(np.float64).T, sr=sample)
             min_size = min(mfcc.flatten().shape[0], min_size)
     for foldername in sorted(os.listdir(os.path.join(os.getcwd(), 'dataset'))):
-        for filename in sorted(os.listdir(os.path.join(os.path.join(os.getcwd(), 'dataset'),foldername))):
+        for filename in sorted(os.listdir(os.path.join(os.path.join(os.getcwd(), 'dataset'), foldername))):
             sample, single_file = wavfile.read(os.path.join(os.getcwd() + '/dataset/' + foldername, filename))
             folder_name_list.append(foldername)
             # time = np.linspace(0, single_file.shape[0]/ sample, single_file.shape[0])

@@ -6,6 +6,7 @@ from .LogisticRegression import LogisticRegression
 from .KNN import KNN
 from .SVM import SVM
 from .PCA import PCA
+from .ARMA import ARMA
 
 
 from .examples import *

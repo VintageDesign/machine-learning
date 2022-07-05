@@ -15,7 +15,7 @@ class MultiVariateLinearRegression:
         self._max_epochs = max_epochs
         self._weights = np.zeros((1,1))
 
-    def _predict(self, x):
+    def predict(self, x):
         summation = self._net_input(x)
         return summation
 
@@ -44,7 +44,7 @@ class MultiVariateLinearRegression:
 
         for epoch in range(self._max_epochs):
             for index in range(self._n):
-                prediction = self._predict(x[index])
+                prediction = self.predict(x[index])
 
                 error = prediction - y[index]
 
